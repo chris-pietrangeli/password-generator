@@ -11,5 +11,4 @@ GIVEN I need a new, secure password WHEN I click the button to generate a passwo
 <img src="assets/images/screenshot.png">
 
 ## Deployed link
-
-
+https://chris-pietrangeli.github.io/password-generator/
