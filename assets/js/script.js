@@ -1,34 +1,65 @@
 // Assignment code here
+var generateBtn = document.querySelector("#generate");
+var passwordText = document.querySelector("#password");
 var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numberString = "12345678901234567890";
+var specialChar = '!"#$%&()*+,-.;:<>=?@[]_^`{}~|';
+var passLengthNum = "";
+var passLength = "";
+var wordBank = "";
+var password = "";
 
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
+function passwordLength() {
+  passLength = prompt("Choose a password length between 5 and 128 characters!");
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  if (passLength >= 5 && passLength <= 128) {
+    passLengthNum = parseInt(passLength);
+  }
+  else {
+    alert("Choose a number between 5 and 128!");
+    passwordLength();
+  }
+};
 
-  passwordText.value = password;
+function passOptions() {
+  //give user the option to pick what styles are added to the password
+  var lowerCaseOption = confirm("Would you like lower case numbers in your password?");
+  var upperCaseOption = confirm("Would you like upper case numbers in your password?");
+  var numberOption = confirm("Would you like numbers in your password?");
+  var specialOption = confirm("Would you like special characters in your password?");
+
+  //if statements to handle yes or no options
+  if (lowerCaseOption) wordBank += lowerCase;
+  if (upperCaseOption) wordBank += upperCase;
+  if (numberOption) wordBank += numberString;
+  if (specialOption) wordBank += specialChar;
+
+  return wordBank;
 
 };
 
-function generatePassword () {
-  var wordBank = "";
-  var passLength = prompt("Select a length between 5 and 128 characters for password length");
-  console.log(passLength);
-  var passLower = confirm("Would you like Lower Case values?");
-  var passUpper = confirm("Would you like upper case characters in your password?");
-  console.log(passLower, passUpper);
-  if (passLower) {
-    wordBank += lowerCase;
+function randArray() {
+  for (var i =0; i < passLengthNum; i++) {
+    var randCharacter = wordBank[Math.floor(Math.random() * wordBank.length)];
+    password += randCharacter;
   }
-  if (passUpper) {
-    wordBank += upperCase;
-  }
-  console.log("main password ", wordBank);
+  return password;
+};
 
+function generatePassword() {
+  passwordLength();
+  passOptions();
+  randArray();
+};
+
+function writePassword() {
+  password = "";
+  alert("Please choose what you would like to be in your password?");
+
+  generatePassword();
+
+  passwordText.value = password;
 };
 
 // Add event listener to generate button
